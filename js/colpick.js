@@ -314,14 +314,19 @@ For usage and examples: colpick.com/plugin
 					return this;
 				}
 				
+			        // This will be used to help create unique IDs, below.
+			        var salt = parseInt(Math.random() * 10000);
+
 				//For each selected DOM element
-				return this.each(function () {
+				return this.each(function (i, v) {
 					//If the element does not have an ID
 					if (!$(this).data('colpickId')) {
 						var options = $.extend({}, opt);
 						options.origColor = opt.color;
-						//Generate and assign a random ID
-						var id = 'collorpicker_' + parseInt(Math.random() * 1000);
+
+						//Generate and assign a unique ID.
+					        var id = 'collorpicker_' + salt + '_' + i;
+					    
 						$(this).data('colpickId', id);
 						//Set the tpl's ID and get the HTML
 						var cal = $(tpl).attr('id', id);
